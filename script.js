@@ -70,16 +70,13 @@ function clearAddStudentForm(){
  * @returns {number}
  */
 function calculateAverage(numberArray){
-    var total = null;
+    var total = 0;
     for(var x =0; x < numberArray.length; x++){
-        total += parseInt(numberArray[x].Grade);
-        console.log(numberArray[x].Grade)
+        total += parseInt(numberArray[x].grade);
     }
     $('.avgGrade').text(Math.ceil(total/x));
     return total/x;
-
-
-
+    
 }
 /**
  * updateData - centralized function to update the average and call student list update
@@ -95,7 +92,6 @@ function updateData(){
 function updateStudentList (){
     $('tbody tr').remove();
     for(var x = 0; x < student_array.length; x++){
-        //student_array[x].push(addStudentToDom())
         addStudentToDom(student_array[x])
     }
 
@@ -108,21 +104,17 @@ function updateStudentList (){
 function addStudentToDom(studentObj) {
     var trow = $('<tr>');
     var tdrow = $('<td>');
-    var studName = studentObj.name;
-    var studCourse = studentObj.course;
-    var studGrade = studentObj.grade;
-    var rowStudent = $('<td>').addClass('col-md-2').text(studName);
-    var rowCourse = $('<td>').addClass('col-md-2').text(studCourse);
-    var grade = $('<td>').addClass('col-md-2').text(studGrade);
-    // var delBut = $('<td>').html("<button type='button' onclick='deleteStudent()' class='col-sm-4 col-md-4 col-lg-4 btn btn-danger' data-index='4'>DELETE</button>");
+    var rowStudent = $('<td>').addClass('col-md-2').text(studentObj.name);
+    var rowCourse = $('<td>').addClass('col-md-2').text(studentObj.course);
+    var rowGrade = $('<td>').addClass('col-md-2').text(studentObj.grade);
     var delBut = $('<button>', {
-        class: 'col-sm-4 col-md-4 col-lg-4 btn btn-danger',
+        class:  'btn btn-danger',
         text: 'DELETE',
         data_id: studentObj.id
     });
     $(tdrow).append(delBut);
 
-    var tables = $(trow).append(rowStudent, rowCourse, grade, tdrow);
+    var tables = $(trow).append(rowStudent, rowCourse, rowGrade, tdrow);
     $('tbody').append(tables);
     delBut.click(function () {
         var trow = $(this).parent();
@@ -164,7 +156,7 @@ function getData() {
             for (var i = 0; i < jsonData.length; i++) {
                 student_array.push(jsonData[i]);
             }
-            updateStudentList();
+            updateData();
         }
     })
 }
