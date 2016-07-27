@@ -102,7 +102,17 @@ function updateStudentList (){
  * @param studentObj
  */
 function addStudentToDom(studentObj) {
-    var trow = $('<tr>');
+    var trow;
+  if(studentObj.grade > 90){
+         trow = $('<tr>').css('background-color','#87ceeb');
+    }
+    else if(studentObj.grade > 75 && studentObj.grade < 90 ){
+         trow = $('<tr>').css('background-color', '#fa8072');
+    }
+    else{
+        trow = $('<tr>').css('background-color', '#ffa500');
+    }
+
     var tdrow = $('<td>');
     var rowStudent = $('<td>').addClass('col-md-2').text(studentObj.name);
     var rowCourse = $('<td>').addClass('col-md-2').text(studentObj.course);
@@ -113,7 +123,6 @@ function addStudentToDom(studentObj) {
         data_id: studentObj.id
     });
     $(tdrow).append(delBut);
-
     var tables = $(trow).append(rowStudent, rowCourse, rowGrade, tdrow);
     $('tbody').append(tables);
     delBut.click(function () {
